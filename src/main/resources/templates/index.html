@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>首页</title>
+    <link rel="stylesheet" th:href="@{../login/css/bootstrap-5.2.0-beta1-dist/css/bootstrap.css}">
+
+    <script th:src="@{../login/css/bootstrap-5.2.0-beta1-dist/js/bootstrap.bundle.js}"></script>
+
+</head>
+<style type="text/css">
+    img {
+        height: 300px;
+        width: 300px;
+    }
+
+    .d-flex {
+        margin-left: 30%;
+        /* border: solid 1px; */
+
+
+    }
+
+    .d-flex > div:hover {
+
+        border: solid 1px coral;
+
+    }
+
+    .d-flex > div {
+        height: 440px;
+        text-align: center;
+        border: 1px solid transparent;;
+    }
+
+    .fen {
+        position: absolute;
+
+    }
+
+    .fen > div:hover {
+        background-color: khaki;
+    }
+
+    .col-6 {
+        font-family: 楷体;
+        font-size: 1.5em;
+        text-align: center;
+        border: solid 1px;
+
+    }
+
+    .col-6 > a {
+        text-decoration: none;
+        color: black;
+    }
+
+    .jieshao {
+        font-size: 0.8em;
+        width: 300px;
+        height: 42px;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+</style>
+<body>
+<nav class="navbar navbar-expand-lg   navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">网上书城</a>
+        <!--<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
+        <!--&lt;!&ndash;<span class="navbar-toggler-icon"></span>&ndash;&gt;-->
+        <!--</button>-->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">首页</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " th:href="@{/shopcar}">购物车</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link  " th:href="@{/order}">我的订单</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link  " th:href="@{/person}">我的信息</a>
+                </li>
+                <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+                    <a class="nav-link dropdown-toggle" sec:authentication="name" href="#" id="navbarDropdown"
+                       role="button" data-bs-toggle="dropdown" s>
+
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#" sec:authorize="hasAuthority('2')">后台管理</a></li>
+                        <li><a class="dropdown-item">
+                            <form th:action="@{/mylogout}" th:method="post">
+                                <input class="dropdown-item" th:value="注销" type="submit">
+                            </form>
+                        </a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <!--<li><a class="dropdown-item" href="#">Something else here</a></li>-->
+                    </ul>
+                </li>
+
+                <li class="nav-item" sec:authorize="isAnonymous()">
+                    <a class="nav-link " th:href="@{/userLogin}">请登录</a>
+                </li>
+                <!--<li class="nav-item" sec:authorize="isAuthenticated()">-->
+                <!--<a class="nav-link " href="#" sec:authentication="name"></a>-->
+                <!--</li>-->
+            </ul>
+
+        </div>
+    </div>
+</nav>
+<br>
+<!--!!!!!!!!-->
+<div class="container-fluid fen">
+
+    <div class="col-6 col-sm-3"><a th:href="@{/index(num=1,imgsort='it')}">it类书籍</a></div>
+    <div class="w-100 d-none d-md-block"></div>
+    <div class="col-6 col-sm-3"><a th:href="@{/index(num=1,imgsort='math')}">数学类书籍</a></div>
+    <div class="w-100 d-none d-md-block"></div>
+    <div class="col-6 col-sm-3"><a th:href="@{/index(num=1,imgsort='sci')}">科学类书籍</a></div>
+    <div class="w-100 d-none d-md-block"></div>
+    <div class="col-6 col-sm-3"><a href="#">体育类书籍</a></div>
+    <div class="w-100 d-none d-md-block"></div>
+    <div class="col-6 col-sm-3"><a href="#">儿童类书籍</a></div>
+    <div class="w-100 d-none d-md-block"></div>
+    <div class="col-6 col-sm-3"><a href="#">历史类书籍</a></div>
+    <div class="w-100 d-none d-md-block"></div>
+    <div class="col-6 col-sm-3"><a href="#">地理类书籍</a></div>
+
+
+</div>
+<!--!!!!!!!!!!!!-->
+
+
+<div class="container-fluid">
+    <form class="d-flex" role="search">
+        <input class="form-control me-2" style="width: 600px;" type="search" placeholder="Search" aria-label="Search" s>
+        <button class="btn btn-outline-success" type="submit">搜索</button>
+    </form>
+</div>
+<br>
+
+
+<!--！！！！！！！！！！！-->
+<div class="d-flex align-content-start flex-wrap">
+    <div th:if="${#lists.isEmpty(imgs)}">数据不存在!</div>
+    <!--<div ><img src="../img/1.jpg" /></div>-->
+    <!--<div ><img  th:src="@{../img/1.jpg}" /></div>-->
+    <div th:each="imgMessage:${imgs}">
+        <img th:src="@{${imgMessage.img}}"/>
+        <p class="jieshao" th:text="${imgMessage.description}"></p>
+        原价<span style="text-decoration: line-through;color: red;" th:text="${imgMessage.price}"></span>
+        &nbsp;&nbsp;&nbsp;
+        折后价：<span th:text="${imgMessage.discount}"></span>
+
+            <a th:href="@{/introduce(introduce=${imgMessage.id})}" style="text-decoration: none">
+                <button type="button" class="btn btn-warning">商品详情
+            </button></a>
+        <p th:text="${imgMessage.supplier}"></p>
+    </div>
+
+</div>
+<!--!!!!!!!!1-->
+
+<nav aria-label="Page navigation example" style="margin-left:50%;">
+    <ul class="pagination" th:id="cre">
+        <!--<li class="page-item"><a  class="page-link" href="#" >上一页</a></li>-->
+        <li class="page-item" th:each="Im:${imgLeng}"><a class="page-link"
+                                                         th:href="@{/index(num=${Im},imgsort=${imgsort})}"
+                                                         th:text="${Im}" th:value="${Im}"></a></li>
+
+    </ul>
+</nav>
+<!--!!!!!!!!!!1-->
+<script>
+
+
+</script>
+</body>
+</html>

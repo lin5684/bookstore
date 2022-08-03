@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.bishe.mappers.ShopCarMapper">
+    <select id="getShopCarByUserId" resultType="ShopCar">
+        SELECT * from bs_shopcar  WHERE user_id= #{userId}
+    </select>
+    <select id="getShopCarByUserIdAndArticle" resultType="ShopCar">
+        SELECT * from bs_shopcar  WHERE user_id= #{userId} and article_id=#{articleId}
+    </select>
+
+    <delete id="deleteGoods">
+      DELETE from bs_shopcar  where user_id=#{userId}
+  </delete>
+
+    <delete id="delBygoodIdAndUserId">
+        DELETE from bs_shopcar where  user_id=#{userId} and article_id=#{articleId}
+    </delete>
+
+    <insert id="insertShopCar">
+        INSERT INTO bs_shopcar  VALUES (#{userId},#{articleId},#{buyNum})
+    </insert>
+    <update id="updateShopCar">
+        update bs_shopcar
+        <set>
+
+            <if test="buyNum !=null and buyNum !=''">
+                buy_num=#{buyNum}
+            </if>
+        </set>
+        where user_id=#{userId} and article_id=#{articleId}
+    </update>
+</mapper>

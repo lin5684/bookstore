@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+     >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,shrink-to-fit=no">
+    <title>个人信息</title>
+    <link rel="stylesheet" th:href="@{../../login/css/bootstrap-5.2.0-beta1-dist/css/bootstrap.css}">
+
+    <script th:src="@{../../login/css/bootstrap-5.2.0-beta1-dist/js/bootstrap.bundle.js}"></script>
+</head>
+<style>
+    .ziliao {
+        width: 700px;
+        border: solid 1px;
+        margin: 10%;
+        margin-top: 5%;
+        padding: 10px;
+
+    }
+</style>
+<body>
+<div class="header-main">
+    <div id="head1" th:include="comm/header :: common_header"></div>
+</div>
+<!--！！！！！！！！-->
+<div class="ziliao">
+    <p>个人资料</p>
+    <!-- !!!!!!!!!!!! -->
+<form th:action="@{/personSave}" th:method="post">
+    <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">用户名</label>
+        <input type="text" class="form-control" th:name="username" th:value="${username}">
+    </div>
+
+    <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">密码</label>
+        <input type="text" class="form-control" th:name="password"  >
+    </div>
+
+
+    <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">真实姓名</label>
+        <input type="text" class="form-control" th:name="name" th:value="${name}">
+    </div>
+
+
+    <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">性别</label>
+        <select class="form-select"  aria-label="Default select example" th:name="sex" th:id="sex">
+            <option  th:id="nan"  th:value="男" >男</option>
+            <option  th:id="nv" th:value="女" >女</option>
+        </select>
+    </div>
+
+
+    <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">邮箱</label>
+        <input type="text" class="form-control" th:name="email" th:value="${email}">
+    </div>
+
+    <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">电话</label>
+        <input type="text" class="form-control" th:name="phone" th:value="${phone}">
+    </div>
+
+    <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">地址</label>
+        <input type="text" class="form-control"  th:name="address" th:value="${address}" >
+    </div>
+
+    <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">身份</label>
+        <input type="text" class="form-control" th:name="role" th:value="${role}" disabled="disabled" >
+    </div>
+    <input type="submit" class="btn btn-warning" style="padding: auto auto;"></input>
+</form>
+</div>
+<script>
+    window.onload=function () {
+        var sex='[[${userUpdata}]]';
+        if (sex=='success'){
+            alert("信息修改成功");
+        }
+        var nan=document.getElementById("nan");
+        var nv=document.getElementById("nv");
+        var sex='[[${sex}]]';
+        if (sex=='男'){
+            nan.selected=true;
+            nv.selected=false;
+        } else {
+            nv.selected=true;
+            nan.selected=false;
+        }
+    }
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

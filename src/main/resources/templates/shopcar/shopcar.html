@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>购物车</title>
+    <link rel="stylesheet" th:href="@{../../login/css/bootstrap-5.2.0-beta1-dist/css/bootstrap.css}">
+
+    <script th:src="@{../../login/css/bootstrap-5.2.0-beta1-dist/js/bootstrap.bundle.js}"></script>
+    <script th:src="@{../../login/css/jquery-3.1.1.js}"></script>
+</head>
+<style type="text/css">
+    img {
+        width: 200px;
+    }
+    .tab{
+        vertical-align:middle;
+        text-align: center;
+    }
+</style>
+<body>
+<div class="header-main">
+    <div id="head1" th:include="comm/header :: common_header"></div>
+</div>
+<br>
+<!-- ！！！！！！！ -->
+<p style="text-indent: 2em;">当前位置购物车：我的购物车</p>
+<div th:if="${#lists.isEmpty(goodsMessage)}">
+    <p style="text-indent: 2em">您还未添加商品到购物车！</p>
+</div>
+<div class="table-responsive" th:unless="${#lists.isEmpty(goodsMessage)}">
+    <table class="table tab">
+        <thead>
+        <tr>
+            <th scope="col"><input id="ck" onclick="checkAll(this)" type="checkbox"/></th>
+            <th scope="col">图片</th>
+            <th scope="col">名称</th>
+            <th scope="col">价格</th>
+            <th scope="col">数量</th>
+            <th scope="col">小计</th>
+            <th scope="col">操作</th>
+
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each="goods:${goodsMessage} ">
+            <th scope="row">
+                <input name="good" type="checkbox" th:value="${goods.id}"/>
+            </th>
+            <td><img th:src="${goods.img}"></td>
+            <td th:text="${goods.title}">Java开发</td>
+            <td id="price" th:text="${goodsMessage.get(goodsStat.index).price}">@</td>
+            <td><!--/*@thymesVar id="usershopcar" type=""*/-->
+                <input  onchange="validate(this)" style="width: 50px;"
+                       th:value="${usershopcar.get(goodsStat.index).buyNum}" type="text">
+            </td>
+            <td th:id="allMoney" th:text=" ${usershopcar.get(goodsStat.index).buyNum * goods.price}">Otto</td>
+            <td>
+                <a th:href="@{/delCar(artId=${goods.id})}">
+                    <button type="button">删除</button>
+                </a>
+            </td>
+        </tr>
+
+
+        </tbody>
+        <tfoot>
+        <tr>
+            <td></td>
+            <td></td>
+            <td colspan="2">
+                <a th:href="@{/delCar(delAll='delshopcar')}">
+                    <button type="button" class="btn btn-secondary btn-lg" style="background-color: orangered;">清空购物车
+                    </button>
+                </a>
+            </td>
+
+            <td colspan="3">
+
+                <button type="button" class="btn btn-secondary btn-lg" style="background-color: orangered;"
+                        data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                th:id="jiesuangouwuche">
+                    结算购物车
+                </button>
+
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">扫码支付</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <img th:src="@{../../QQ.jpg}">
+            </div>
+            <div class="modal-footer">
+                <a th:href="@{/inOrder}"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">支付成功</button></a>
+                <!-- <button type="button" class="btn btn-primary">Understood</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- !!!!!!!!1 -->
+<script th:inline="javascript">
+    function checkAll(ck) {
+        var arr = document.getElementsByName('good');
+        var ck = document.getElementById('ck');
+        for (i in arr) {
+            arr[i].checked = ck.checked; // 全选
+            //arr[i].checked=!arr[i].checked; 反向全选
+        }
+    }
+
+    // //删除
+    // function del(e){
+    //     e.parentElement.parentElement.remove();
+    //     //获取商品编号
+    //     var gid=e.parentElement.parentElement.firstElementChild.firstElementChild.value;
+    //     $.ajax({
+    //         async: false,
+    //         //tyep:设置提交方式（get|post）
+    //         type: "get",
+    //         //url:提交到那个servlet，这里写它的路径
+    //         url: "/delCar",
+    //         //data:定义数据,以键值对的方式放在大括号里
+    //         data: {artId: gid},
+    //         //statusCode:状态码，用于定义执行时提示的状态
+    //         statusCode: {
+    //             404: function () {
+    //                 alert("404");
+    //             },
+    //             500: function () {
+    //                 alert("500");
+    //             }
+    //         },
+    //         //success:当ajax完成操作并且不出现异常执行它，自定义参数massage是用于存放servlet响应的数据，Status为ajax执行的状态
+    //         success: function (data) {
+    //             //将h1的值替换为servlet返回的值
+    //             // $("#isexist").html(data);
+    //             // $("#isexist").show();
+    //
+    //             alert("执行成功");
+    //         }
+    //     })
+    //
+    //
+    //
+    // }
+
+    //
+    function validate(e) {
+
+        //商品单价
+        var price = e.parentElement.previousElementSibling.innerHTML;
+        // alert(e.parentElement.previousElementSibling.innerHTML);
+        var num = e.value
+
+
+        // !!!!!!!!!!!!!!!!!!!
+        //获取商品编号
+        var gid = e.parentElement.parentElement.firstElementChild.firstElementChild.value;
+        alert(gid);
+
+        $.ajax({
+            async: true,
+            //tyep:设置提交方式（get|post）
+            type: "get",
+            //url:提交到那个servlet，这里写它的路径
+            url: "/doCar",
+            //data:定义数据,以键值对的方式放在大括号里
+            data: {spc: num, artId: gid},
+            //statusCode:状态码，用于定义执行时提示的状态
+            statusCode: {
+                404: function () {
+                    alert("404");
+                },
+                500: function () {
+                    alert("500");
+                }
+            },
+            //success:当ajax完成操作并且不出现异常执行它，自定义参数massage是用于存放servlet响应的数据，Status为ajax执行的状态
+            success: function (data) {
+
+                if(data!='修改成功'&&data!=null){
+
+                    e.value=data;
+                }else if(data=='修改成功') {
+                    //总价
+                    alert(data);
+                    e.parentElement.nextElementSibling.innerText = num * price;
+                }
+
+            }
+        })
+
+
+    }
+
+
+</script>
+</body>
+</html>

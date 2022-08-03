@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.bishe.mappers.UserMapper">
+    <insert id="insertUser">
+      insert into bs_user values (null,#{username},#{password},#{name},#{sex},#{email},#{phone},#{address},#{role})
+    </insert>
+    <delete id="deleteUser">
+        delete from bs_user where username=#{username}
+    </delete>
+    <update id="updateUser">
+        update bs_user
+        <set>
+            <if test="sex !=null and sex !=''">
+                sex=#{sex},
+            </if>
+            <if test="username !=null and username !=''">
+                username=#{username},
+            </if>
+            <if test="email !=null and email !=''">
+                email=#{email},
+            </if>
+            <if test="password !=null and password !=''">
+                password=#{password},
+            </if>
+            <if test="phone !=null and phone !=''">
+                phone=#{phone},
+            </if>
+            <if test="role !=null and role != ''">
+                role=#{role},
+            </if>
+            <if test="name !=null and name != ''">
+                name =#{name},
+            </if>
+            <if test="address !=null and address!=''">
+                address=#{address}
+            </if>
+        </set>
+        where username=#{username}
+    </update>
+    <select id="selectUser" resultType="User">
+        select * from bs_user where username=#{username}
+    </select>
+    <select id="getUserById" resultType="User">
+         select * from bs_user where username=#{id}
+    </select>
+</mapper>

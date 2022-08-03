@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,shrink-to-fit=no">
+    <title>订单管理</title>
+    <link rel="stylesheet" th:href="@{../../login/css/bootstrap-5.2.0-beta1-dist/css/bootstrap.css}">
+
+    <script th:src="@{../../login/css/bootstrap-5.2.0-beta1-dist/js/bootstrap.bundle.js}"></script>
+</head>
+<style>
+    img {
+        width: 60px;
+    }
+    .tab{
+        vertical-align:middle;
+        text-align: center;
+    }
+    a{
+        text-decoration: none;
+    }
+</style>
+<body>
+<div class="header-main">
+    <div id="head1" th:include="comm/header :: common_header"></div>
+</div>
+
+<br>
+<!-- ！！！！！！！ -->
+<p style="text-indent: 2em;">当前位置订单：我的订单</p>
+<div th:if="${#lists.isEmpty(orderList)}">
+    <p style="text-indent: 2em">您还未下单哟！</p>
+</div>
+
+<div class="table-responsive" th:unless="${#lists.isEmpty(orderList)}">
+    <table class="table tab">
+        <thead>
+        <tr>
+            <!--<th scope="col"><input id="ck" onclick="checkAll(this)" type="checkbox"/></th>-->
+            <th scope="col">订单号</th>
+
+            <th scope="col">下单时间</th>
+            <th scope="col">订单状态</th>
+            <th scope="col">订单总金额</th>
+            <th scope="col">收货地址</th>
+            <th scope="col">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="goods:${orderList} ">
+            <!--<th scope="row">-->
+            <!--<input name="good" type="checkbox" th:value="${goods.id}"/>-->
+            <!--</th>-->
+            <td th:text="${goods.orderCode}">订单编号</td>
+            <td th:text="${goods.createTime}">下单时间</td>
+            <td th:text="${goods.status}">订单状态</td>
+            <td th:text="${goods.amount}">订单总金额</td>
+            <td th:text="${address}">地址<span><a href="#">修改</a></span></td>
+            <td ><a th:href="@{/delOrder(orderCode=${goods.orderCode})}">取消</a>
+                <a href="#">修改地址</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

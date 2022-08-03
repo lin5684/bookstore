@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>商品详情</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>首页</title>
+    <link rel="stylesheet" th:href="@{../login/css/bootstrap-5.2.0-beta1-dist/css/bootstrap.css}">
+
+    <script th:src="@{../login/css/bootstrap-5.2.0-beta1-dist/js/bootstrap.bundle.js}"></script>
+
+</head>
+<style>
+    iframe {
+        width: 1200px;
+        margin: auto;
+    }
+
+    .all {
+        width: 100%;
+        height: 810px;
+        padding-bottom: 50px;
+        margin-top: -80px;
+        margin-bottom: 1px;
+    }
+
+    .all .content {
+        margin-top: 0px;
+        float: left;
+    }
+
+    .all iframe {
+        /* border: 2px solid red; */
+    }
+
+    #content {
+        /* 	border: 1px solid red; */
+        width: 1200px;
+        margin-top: -80px;
+        margin: auto;
+    }
+
+    #content .a1 {
+        float: left;
+        margin-left: 10px;
+    }
+
+    #content .a1 .big {
+        /* float: left; */
+        width: 450px;
+        height: 400px;
+    }
+
+    #content .a11 ul li {
+        list-style: none;
+        float: left;
+        margin: 20px 15px;
+    }
+
+    .a11 ul li img {
+        border: 3px white solid;
+        width: 80px;
+        height: 80px;
+    }
+
+    .a11 ul li img:hover {
+        border: 3px #FF4F0D solid;
+    }
+
+    .a2 {
+        float: left;
+        margin-left: 90px;
+    }
+
+    .a21 .color {
+        color: #758188;
+    }
+
+    .a21 .a211 {
+        background-color: #F2F5F8;
+        color: #758188;
+    }
+
+    .a21 .a211 .prices,
+    .shic {
+        margin-left: 40px;
+    }
+
+    .a21 .a211 .prices {
+        color: #FF4F0D;
+        font-size: 35px;
+        font-weight: bold;
+    }
+
+    .a21 .a211 .prices2 {
+        text-decoration: line-through;
+    }
+
+    .a21 .a211 .yis {
+        margin-left: 230px;
+    }
+
+    .a22 {
+        background-color: #F6F9FB;
+    }
+
+    .a22 span,
+    p {
+        margin-top: 10px;
+    }
+
+    .a22 .neir {
+        margin-left: 50px;
+    }
+
+    .a23 {
+        margin-top: 10px;
+    }
+
+    .a24 {
+        margin-top: 10px;
+    }
+
+    .a24 .bang {
+        display: inline-block;
+        border: 3px #EDF0F5 solid;
+        width: 50px;
+        line-height: 40px;
+        margin-left: 30px;
+        text-align: center;
+    }
+
+    .a24 .bang:hover {
+        border: 3px #FF4F0D solid;
+    }
+
+    .a25 {
+        margin-top: 30px;
+    }
+
+    .a25 button {
+        display: inline-block;
+        width: 200px;
+        height: 60px;
+        border-radius: 30px;
+        margin-left: 30px;
+    }
+
+    .a25 .a25color1 {
+        background-color: #FFEEE8;
+        color: #FF4F0D;
+        font-size: 20px;
+        font-weight: bolder;
+        border: 1px #FF4F0D solid;
+    }
+
+    .a25 .a25color2 {
+        background-color: #FF4F0D;
+        color: white;
+        font-size: 20px;
+        font-weight: bolder;
+        border: 1px #FF4F0D solid;
+    }
+
+    /* .all .iheader{
+    margin: auto;
+} */
+</style>
+
+<body>
+<div class="header-main">
+    <div id="head1" th:include="comm/header :: common_header"></div>
+</div>
+<!--  --><br>
+<div id="content">
+    <div class="a1">
+        <img class="big" th:src="@{${goods_detail.img}}"/>
+        <!-- <div class="a11">
+                    <ul>
+                        <li><img src="1.jpg"></li>
+                        <li><img src="1.jpg"></li>
+                        <li><img src="1.jpg"></li>
+                        <li><img src="1.jpg"></li>
+                    </ul>
+                </div> -->
+        <div style="width: 500px;" th:text="@{${goods_detail.description}}" class="a22">
+            <p></p>
+            <p3>【现货正版】人工智能导论 模型与算法 高等教育出版社 吴飞 人工智能与计算机类相关专业本科研究生学习人工智能教材图书籍</p3>
+
+        </div>
+
+    </div>
+    <div class="a2">
+        <h2 th:text="@{${goods_detail.title}}"></h2>
+        <div class="a21">
+            <div class="a211">
+                <span class="color">售价</span>
+                <span class="prices" th:text="@{${goods_detail.discount}}">￥</span>
+                <span class="shic">市场价<span class="prices2" th:text="@{${goods_detail.price}}">￥</span></span>
+                <!-- <span class="yis">已售6264件</span> -->
+            </div>
+            <div class="a22">
+                <p></p>
+                <span class="color">运费</span>
+                <span class="neir">免费</span>
+                <p></p>
+                <span class="color">库存</span>
+                <span class="neir" th:text="${goods_detail.storage}"></span>
+                <p></p>
+                <span class="color">备注</span>
+                <span class="neir" th:text="@{${goods_detail.supplier}}">品牌:悦轩饼家</span>
+            </div>
+            <div class="a22">
+                <p></p>
+                <span class="color"></span>
+                <span class="color">配送说明</span>
+                <p th:text="@{${goods_detail.locality}}">全国配送</p>
+
+                <p></p>
+                <!--<span class="color">数量</span>-->
+                <!--<input type="number" min="1" step="1" value="1" style="width: 60px;">-->
+
+
+                <!-- <span class="color">说明</span> -->
+                <!-- <p>深圳大鹏新区暂不配送</p> -->
+            </div>
+
+            <!-- <div class="a24">
+                    <span class="color">选择</span>
+                    <p></p>
+                    <span class="bang">2磅</span>
+                    <span class="bang">3磅</span>
+                    <span class="bang">4磅</span>
+                </div> -->
+            <div class="a25">
+                <!--<a href="#"><button class="a25color1">立即购买</button></a>-->
+                <a th:href="@{/inShopcar(goods=${goods_detail.id})}">
+                    <button class="a25color2">加入购物车</button>
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<script th:inline="javascript">
+    window.onload=function () {
+    var kucun=[[${kucun}]];
+    if(kucun){
+    alert(kucun);}
+
+    }
+</script>
+
+</body>
+
+</html>

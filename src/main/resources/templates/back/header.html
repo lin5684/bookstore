@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1,shrink-to-fit=no" name="viewport">
+    <title>后台管理</title>
+    <link rel="stylesheet" th:href="@{../../login/css/bootstrap-5.2.0-beta1-dist/css/bootstrap.css}">
+
+    <script th:src="@{../../login/css/bootstrap-5.2.0-beta1-dist/js/bootstrap.bundle.js}"></script>
+
+    <div th:fragment="back_header">
+        <nav class="navbar navbar-expand-lg  navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">网上书城</a>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a aria-current="page" class="nav-link active" th:href="@{/index}">商品信息</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/shopcar}">库存</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/order}">客户订单</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/person}">返回</a>
+                        </li>
+                        <!--<li class="nav-item dropdown" sec:authorize="isAuthenticated()">-->
+                            <!--<a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"-->
+                               <!--id="navbarDropdown" role="button" sec:authentication="name">-->
+
+                            <!--</a>-->
+                            <!--<ul aria-labelledby="navbarDropdown" class="dropdown-menu">-->
+                                <!--<li><a class="dropdown-item" href="#" sec:authorize="hasAuthority('2')">后台管理</a></li>-->
+                                <!--<li><a class="dropdown-item" >-->
+                                    <!--<form th:action="@{/mylogout}" th:method="post">-->
+                                        <!--<input class="dropdown-item" th:value="注销" type="submit">-->
+                                    <!--</form> </a>-->
+                                <!--</li>-->
+                                <!--<li>-->
+                                    <!--<hr class="dropdown-divider">-->
+                                <!--</li>-->
+                                <!--&lt;!&ndash;<li><a class="dropdown-item" href="#">Something else here</a></li>&ndash;&gt;-->
+                            <!--</ul>-->
+                        <!--</li>-->
+                        <!--<li class="nav-item" sec:authorize="isAnonymous()">-->
+                            <!--<a class="nav-link " th:href="@{/userLogin}">请登录</a>-->
+                        <!--</li>-->
+
+                    </ul>
+
+
+                </div>
+            </div>
+        </nav>
+    </div>
+
+</head>
+
+<body>
+
+</body>
+</html>

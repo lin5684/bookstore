@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.bishe.mappers.ArticleMapper">
+    <select id="selectAllArticle" resultType="Article">
+        select * from bs_article
+    </select>
+    <select id="selectByTypeCode" resultType="Article">
+        select * from bs_article where type_code=#{typeCode}
+    </select>
+    <select id="selectById" resultType="Article">
+        select * from bs_article where id=#{id}
+    </select>
+
+    <update id="updataArticle">   update bs_article
+        <set>
+            <if test="id !=null and id !=''">
+                id=#{id},
+            </if>
+            <if test="title !=null and title !=''">
+                title =#{title},
+            </if>
+            <if test="supplier !=null and supplier !=''">
+                supplier=#{supplier},
+            </if>
+            <if test="price !=null and price !=''">
+                price=#{price},
+            </if>
+            <if test="discount !=null and discount !=''">
+                discount=#{discount},
+            </if>
+            <if test="locality !=null and locality != ''">
+                locality=#{locality},
+            </if>
+            <if test="storage !=null and storage != ''">
+                storage =#{storage},
+            </if>
+            <if test="description !=null and description!=''">
+                description=#{description},
+            </if>
+            <if test="img!=null and img!=''">
+                img=#{img}
+            </if>
+        </set>
+        where  title =#{title}
+    </update>
+</mapper>
